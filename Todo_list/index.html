@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dark Mode To-Do List</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>To-Do List</h1>
+      <div class="input-container">
+        <input type="text" id="todo-input" placeholder="Add a new task..." />
+        <button id="add-task-btn">Add Task</button>
+      </div>
+      <ul id="todo-list"></ul>
+    </div>
+    <script >
+        const todoInput = document.getElementById("todo-input");
+        const addTaskButton = document.getElementById("add-task-btn");
+        const todoList = document.getElementById("todo-list");
+
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [] ;
+    
+        
+   function render(tasks){
+        const li = document.createElement("li");
+        li.innerHTML = `
+        <span>${tasks}</span>
+        <button>delete</button>
+        `;
+
+        todoList.appendChild(li);  
+         
+        li.querySelector("button").addEventListener("click" , function(e) {
+            console.log("parent element :");
+            console.log(e.target.parentElement); //returns parent element of button main
+
+            e.target.parentElement.remove();  //removes that li
+
+            console.log("text of that node : ");  //returns previvious li 's text
+            console.log(e.target.parentElement.firstElementChild.innerText);
+
+            // logic of removing element from the local storage ;
+             let tasks = JSON.parse(localStorage.getItem("tasks"))
+            
+             console.log("all tasks before delete  : ");
+             console.log(tasks);
+
+            //logic of deleted text's index
+             let index_remove = tasks.indexOf(e.target.parentElement.firstElementChild.innerText);
+
+            console.log("index of delete item in local storage : ");
+            console.log(index_remove);
+
+            //delete item
+            tasks.splice(index_remove, 1);
+
+            console.log("all tasks after delete item in local storage");
+            console.log(tasks);
+
+            localStorage.setItem("tasks" , JSON.stringify(tasks))
+        },true)  //
+        
+    }
+
+        tasks.forEach(element => {
+            render(element)
+        });
+         
+    function save_to_local(){
+        return localStorage.setItem("tasks" , JSON.stringify(tasks));
+    }  
+
+
+
+    addTaskButton.addEventListener("click" , () => {
+        let todo_input = todoInput.value.trim() ;
+        if(todo_input == ""){
+            return
+        }
+        if(tasks.includes(todo_input)){
+            return
+        }
+        console.log("this item is added: " + todo_input);
+        tasks.push(todo_input);
+        save_to_local();
+        render(todo_input);
+        // const li = document.createElement("li");
+        // li.innerHTML = `
+        // <span>${todo_input}</span>
+        // <button>delete</button>
+        // `;
+        // todoList.appendChild(li); 
+        todo_input = ""
+    })
+
+   
+
+
+    </script>
+  </body>
+</html>
