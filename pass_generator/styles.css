@@ -1,0 +1,191 @@
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'League Spartan', sans-serif;
+}
+
+:root {
+    --bg-gradient: linear-gradient(135deg, #141E30, #243B55);
+    --primary: #00ADB5;
+    --secondary: #393E46;
+    --light: #EEEEEE;
+    --dark: #222831;
+    --hover-primary: #02BEC6;
+    --hover-light: #F8F9FA;
+    --hover-secondary: #51585C;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-gradient);
+    color: var(--light);
+}
+
+.container {
+    width: 90%;
+    max-width: 480px;
+    background-color: var(--dark);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+    font-size: 2rem;
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.display-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--secondary);
+    border-radius: 10px;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+}
+
+.display {
+    flex-grow: 1;
+    font-size: 1.25rem;
+    border: none;
+    background-color: transparent;
+    color: var(--light);
+    outline: none;
+}
+
+.display::placeholder {
+    color: var(--hover-secondary);
+    font-style: italic;
+}
+
+.copyBtn {
+    background-color: var(--primary);
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.copyBtn:hover {
+    background-color: var(--hover-primary);
+}
+
+.copyBtn img {
+    width: 20px;
+    height: 20px;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.length-container,
+.strength-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.length-container p,
+.strength-container p {
+    font-size: 1.2rem;
+}
+
+.slider {
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    background-color: var(--secondary);
+    border-radius: 4px;
+    outline: none;
+    transition: background 0.3s;
+}
+
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background-color: var(--primary);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0px 0px 8px rgba(0, 173, 181, 0.75);
+}
+
+.check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.check input {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: var(--primary);
+    border-radius: 4px;
+}
+
+.check label {
+    font-size: 1rem;
+    color: var(--light);
+    cursor: pointer;
+}
+
+.indicator {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: var(--secondary);
+    transition: background-color 0.3s;
+}
+
+.generateButton {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--primary);
+    color: var(--light);
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.generateButton:hover {
+    background-color: var(--hover-primary);
+}
+
+.tooltip {
+    position: absolute;
+    background-color: var(--secondary);
+    color: var(--light);
+    font-size: 0.9rem;
+    padding: 5px 10px;
+    border-radius: 5px;
+    opacity: 0;
+    transform: scale(0.8);
+    transform-origin: bottom;
+    transition: all 250ms ease-in-out;
+}
+
+.tooltip.active {
+    opacity: 1;
+    transform: scale(1);
+}

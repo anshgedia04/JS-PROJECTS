@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <style>
+        body {
+            background: #272424;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        #temp-main {
+            display: flex;
+            flex-direction: column;
+            background: #444;
+            padding: 20px;
+            justify-content: center;
+            align-items: center;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            margin: 0 0 20px 0;
+            color: #f9f9f9;
+        }
+
+        #input {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        #city-input {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            width: 200px;
+            transition: border-color 0.3s;
+        }
+
+        #city-input:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+
+        #search-main {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            background-color: #007BFF;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        #search-main:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        #search-main:active {
+            background-color: #004494;
+            transform: translateY(0);
+        }
+
+        #city-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        #temp {
+            font-size: 40px;
+            font-weight: bold;
+            margin: 5px 0;
+            color: #FFD700;
+        }
+
+        #desc {
+            font-size: 20px;
+            text-transform: capitalize;
+            color: #f0f0f0;
+        }
+
+        .loader {
+            width: 44.8px;
+            height: 44.8px;
+            color: #554cb5;
+            position: relative;
+            background: radial-gradient(11.2px, currentColor 94%, #0000);
+            margin: 20px auto;
+            display: none; /* Initially hidden */
+        }
+
+        .loader:before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: radial-gradient(10.08px at bottom right, #0000 94%, currentColor) top left,
+                radial-gradient(10.08px at bottom left, #0000 94%, currentColor) top right,
+                radial-gradient(10.08px at top right, #0000 94%, currentColor) bottom left,
+                radial-gradient(10.08px at top left, #0000 94%, currentColor) bottom right;
+            background-size: 22.4px 22.4px;
+            background-repeat: no-repeat;
+            animation: loader 1.5s infinite cubic-bezier(0.3, 1, 0, 1);
+        }
+
+        @keyframes loader {
+            33% {
+                inset: -11.2px;
+                transform: rotate(0deg);
+            }
+
+            66% {
+                inset: -11.2px;
+                transform: rotate(90deg);
+            }
+
+            100% {
+                inset: 0;
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <div id="temp-main">
+            <h2>Weather Info</h2>
+            <div id="input">
+                <input type="text" placeholder="Enter city" id="city-input">
+                <button id="search-main">Search Weather</button>
+            </div>
+            <div class="loader" id="loader"></div>
+            <span id="city-name">Surat</span>
+            <p id="temp">22&deg;C</p>
+            <p id="desc">Cloudy</p>
+        </div>
+    </div>
+    <script>
+        document.getElementById("search-main").addEventListener("click", async () => {
+            let city = document.getElementById("city-input").value;
+            let temp = document.getElementById("temp");
+            let desc = document.getElementById("desc");
+            let city_name = document.getElementById("city-name");
+            let loader = document.getElementById("loader");
+
+            // Show loader and hide weather info
+            loader.style.display = "block";
+            city_name.innerText = "";
+            temp.innerText = "";
+            desc.innerText = "";
+
+            async function getData(city) {
+                const API = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=5f56d525d1619d0a2cd2eac4ce55588e`;
+                try {
+                    const response = await fetch(API);
+                    const data = await response.json();
+                    return data;
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+
+            const show_weather_data = (data) => {
+                if (data.cod === 200) {
+                    city_name.innerText = data.name;
+                    temp.innerText = `${data.main.temp}°C`;
+                    desc.innerText = data.weather[0].description;
+                } else {
+                    city_name.innerText = "City not found";
+                    temp.innerText = "--";
+                    desc.innerText = "--";
+                }
+            };
+
+            const data = await getData(city);
+            show_weather_data(data);
+
+            
+            loader.style.display = "none";
+        });
+    </script>
+</body>
+</html>
