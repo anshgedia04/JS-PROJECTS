@@ -1,0 +1,154 @@
+/* Universal Reset */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Body and Wrapper Styles */
+body {
+    background-color: #282c34;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.wrapper {
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    display: grid;
+    place-items: center;
+    position: relative;
+}
+
+/* Game Info Styling */
+.game-info {
+    position: absolute;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 0.5rem 2rem;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 1.2rem;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+/* Tic Tac Toe Grid Styling */
+.tic-tac-toe {
+    width: 90%;
+    max-width: 20rem;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 15px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 5px;
+    padding: 5px;
+    aspect-ratio: 1/1;
+}
+
+/* Box Styling */
+.box {
+    width: 100%;
+    aspect-ratio: 1/1;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+    color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Hover Effect on Box */
+.box:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Border Styling for Boxes */
+.box1, .box2, .box4, .box5 {
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+}
+
+.box3, .box6 {
+    border-bottom: 2px solid #fff;
+}
+
+.box7, .box8 {
+    border-right: 2px solid #fff;
+}
+
+/* Button Styling */
+.btn {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 255, 0, 0.2);
+    color: #fff;
+    padding: 0.8rem 2.5rem;
+    border-radius: 25px;
+    border: 2px solid rgba(0, 255, 0, 0.3);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: none;
+}
+
+/* Show Button when Active */
+.btn.active {
+    display: flex;
+}
+
+/* Button Hover Effect */
+.btn:hover {
+    background-color: rgba(0, 255, 0, 0.3);
+    border: 2px solid rgba(0, 255, 0, 0.5);
+}
+
+/* Winner Highlight Effect */
+.win {
+    background-color: rgba(0, 255, 0, 0.4);
+    animation: win-animation 0.5s ease-out;
+}
+
+/* Animation for Winning Boxes */
+@keyframes win-animation {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Game Over Message Styling */
+.game-info {
+    font-size: 1.5rem;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+/* Media Query for Responsiveness */
+@media (max-width: 600px) {
+    .tic-tac-toe {
+        max-width: 90%;
+    }
+
+    .btn {
+        padding: 0.6rem 2rem;
+        font-size: 1rem;
+    }
+}
