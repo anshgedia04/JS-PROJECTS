@@ -74,7 +74,7 @@ function handleTyping() {
     } else if (typedChar === paragraph[i]) {
       // If the typed character is correct
       charElement.className = "text-green-500"; // Set to green
-      
+      correctKeystrokes++; // Count as a correct keystroke
     } else {
       // If the typed character is incorrect
       charElement.className = "text-red-500"; // Set to red
